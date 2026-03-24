@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:47" hostname="DESKTOP-6U4UTQC" time="1.827">
+  <properties/>
+  <testcase name="userClientPort_returnsUserFeignAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="1.691"/>
+  <testcase name="traceabilityClientPort_returnsTraceabilityFeignAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.007"/>
+  <testcase name="restaurantServicePort_returnsRestaurantUseCase()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.006"/>
+  <testcase name="orderServicePort_returnsOrderUseCase()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.007"/>
+  <testcase name="orderPersistencePort_returnsOrderJpaAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.01"/>
+  <testcase name="employeeRestaurantPersistencePort_returnsEmployeeRestaurantJpaAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.011"/>
+  <testcase name="dishServicePort_returnsDishUseCase()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.007"/>
+  <testcase name="messagingClientPort_returnsMessagingFeignAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.012"/>
+  <testcase name="restaurantPersistencePort_returnsRestaurantJpaAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.036"/>
+  <testcase name="dishPersistencePort_returnsDishJpaAdapter()" classname="com.gastropolis.plazoleta.infrastructure.configuration.BeanConfigurationTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

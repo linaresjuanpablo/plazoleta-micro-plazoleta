@@ -1,0 +1,20 @@
+package com.gastropolis.plazoleta.infrastructure.out.feign.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserFeignResponseDto {
+    private Long id;
+    private String name;
+    private String lastName;
+    private String dni;
+    private String phone;
+    private String email;
+    private String roleName;
+}

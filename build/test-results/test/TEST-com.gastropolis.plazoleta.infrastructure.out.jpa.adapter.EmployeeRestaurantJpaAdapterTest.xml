@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.EmployeeRestaurantJpaAdapterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.011">
+  <properties/>
+  <testcase name="saveEmployeeRestaurant_createsCompositeIdAndSavesEntity()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.EmployeeRestaurantJpaAdapterTest" time="0.005"/>
+  <testcase name="saveEmployeeRestaurant_callsGetReferenceByIdForRestaurant()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.EmployeeRestaurantJpaAdapterTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

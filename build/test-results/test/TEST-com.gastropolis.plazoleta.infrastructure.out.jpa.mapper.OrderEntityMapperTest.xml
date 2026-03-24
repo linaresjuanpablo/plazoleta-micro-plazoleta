@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:52" hostname="DESKTOP-6U4UTQC" time="0.052">
+  <properties/>
+  <testcase name="toModel_withEmptyDishes_returnEmptyList()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="toModel_mapsAllFieldsIncludingRestaurantName()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="toModel_withNullEntity_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.004"/>
+  <testcase name="toModelList_withNullList_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="orderDishEntityToModel_mapsOrderIdDishIdAndDishName()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="toModel_withNullRestaurant_setsNullRestaurantName()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.004"/>
+  <testcase name="toModelList_mapsListOfEntities()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="toEntity_withNullModel_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.004"/>
+  <testcase name="orderDishEntityToModel_withNullEntity_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <testcase name="toModel_mapsOrderDishes()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.OrderEntityMapperTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

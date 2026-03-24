@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestaurantHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.application.handler.impl</a> &gt; <span class="el_source">RestaurantHandler.java</span></div><h1>RestaurantHandler.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.application.handler.impl;
+
+import com.gastropolis.plazoleta.application.dto.request.CreateEmployeeRequestDto;
+import com.gastropolis.plazoleta.application.dto.request.CreateRestaurantRequestDto;
+import com.gastropolis.plazoleta.application.dto.response.RestaurantResponseDto;
+import com.gastropolis.plazoleta.application.handler.IRestaurantHandler;
+import com.gastropolis.plazoleta.application.mapper.IRestaurantRequestMapper;
+import com.gastropolis.plazoleta.application.mapper.IRestaurantResponseMapper;
+import com.gastropolis.plazoleta.domain.api.IRestaurantServicePort;
+import com.gastropolis.plazoleta.domain.model.CreateEmployeeModel;
+import com.gastropolis.plazoleta.domain.model.RestaurantModel;
+import com.gastropolis.plazoleta.infrastructure.security.JwtService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class RestaurantHandler implements IRestaurantHandler {
+
+    private final IRestaurantServicePort restaurantServicePort;
+    private final IRestaurantRequestMapper restaurantRequestMapper;
+    private final IRestaurantResponseMapper restaurantResponseMapper;
+    private final JwtService jwtService;
+
+    @Override
+    public RestaurantResponseDto createRestaurant(CreateRestaurantRequestDto dto, String token) {
+<span class="fc" id="L30">        RestaurantModel model = restaurantRequestMapper.toRestaurantModel(dto);</span>
+<span class="fc" id="L31">        RestaurantModel saved = restaurantServicePort.createRestaurant(model, token);</span>
+<span class="fc" id="L32">        return restaurantResponseMapper.toRestaurantResponseDto(saved);</span>
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page&lt;RestaurantResponseDto&gt; listRestaurants(int page, int size) {
+<span class="fc" id="L38">        Page&lt;RestaurantModel&gt; restaurantPage = restaurantServicePort.listRestaurants(page, size);</span>
+<span class="fc" id="L39">        return restaurantPage.map(restaurantResponseMapper::toRestaurantResponseDto);</span>
+    }
+
+    @Override
+    public void createEmployee(CreateEmployeeRequestDto dto, String token) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        String rawToken = token.startsWith(&quot;Bearer &quot;) ? token.substring(7) : token;</span>
+<span class="fc" id="L45">        Long ownerId = jwtService.getUserIdFromToken(rawToken);</span>
+
+<span class="fc" id="L47">        CreateEmployeeModel model = new CreateEmployeeModel(</span>
+<span class="fc" id="L48">                dto.getName(),</span>
+<span class="fc" id="L49">                dto.getLastName(),</span>
+<span class="fc" id="L50">                dto.getDni(),</span>
+<span class="fc" id="L51">                dto.getPhone(),</span>
+<span class="fc" id="L52">                dto.getBirthDate(),</span>
+<span class="fc" id="L53">                dto.getEmail(),</span>
+<span class="fc" id="L54">                dto.getPassword()</span>
+        );
+
+<span class="fc" id="L57">        restaurantServicePort.createEmployee(model, ownerId, token);</span>
+<span class="fc" id="L58">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

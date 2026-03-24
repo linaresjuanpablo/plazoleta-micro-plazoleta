@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.application.handler.impl.RestaurantHandlerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:43" hostname="DESKTOP-6U4UTQC" time="0.583">
+  <properties/>
+  <testcase name="createEmployee_withoutBearerPrefix_usesTokenAsIs_extractsOwnerIdAndDelegates()" classname="com.gastropolis.plazoleta.application.handler.impl.RestaurantHandlerTest" time="0.519"/>
+  <testcase name="createEmployee_withBearerPrefix_stripsPrefix_extractsOwnerIdAndDelegates()" classname="com.gastropolis.plazoleta.application.handler.impl.RestaurantHandlerTest" time="0.013"/>
+  <testcase name="listRestaurants_mapsPageAndReturnsResponseDtos()" classname="com.gastropolis.plazoleta.application.handler.impl.RestaurantHandlerTest" time="0.013"/>
+  <testcase name="createRestaurant_mapsAndDelegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.RestaurantHandlerTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

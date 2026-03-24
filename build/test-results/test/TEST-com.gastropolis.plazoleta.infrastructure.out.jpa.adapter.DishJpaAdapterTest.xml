@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.078">
+  <properties/>
+  <testcase name="saveDish_whenIdIsNull_createsNewEntityAndSaves()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.011"/>
+  <testcase name="saveDish_whenIdIsNotNull_loadsExistingEntityAndUpdates()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.021"/>
+  <testcase name="saveDish_whenIdNotNullAndNotFound_createsNewEntity()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.007"/>
+  <testcase name="findById_whenExists_returnsModel()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.013"/>
+  <testcase name="findByRestaurantId_returnsPageOfModels()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.008"/>
+  <testcase name="findByRestaurantIdAndCategoryId_returnsPageOfModels()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.005"/>
+  <testcase name="findById_whenNotExists_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.DishJpaAdapterTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

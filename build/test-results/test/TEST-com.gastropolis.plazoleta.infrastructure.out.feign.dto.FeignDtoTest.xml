@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.017">
+  <properties/>
+  <testcase name="createOrderLogFeignDto_noArgsConstructorAndSetters()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.002"/>
+  <testcase name="sendSmsFeignDto_noArgsConstructorAndSetters()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.001"/>
+  <testcase name="createEmployeeFeignRequestDto_noArgsConstructorAndSetters()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.0"/>
+  <testcase name="createOrderLogFeignDto_allArgsConstructor()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.001"/>
+  <testcase name="createEmployeeFeignRequestDto_allArgsConstructor()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.001"/>
+  <testcase name="userFeignResponseDto_noArgsConstructorAndSetters()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.001"/>
+  <testcase name="userFeignResponseDto_allArgsConstructor()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.001"/>
+  <testcase name="sendSmsFeignDto_allArgsConstructor()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.dto.FeignDtoTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

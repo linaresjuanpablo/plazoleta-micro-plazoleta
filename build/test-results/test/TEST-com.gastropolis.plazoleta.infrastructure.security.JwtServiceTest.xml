@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:52" hostname="DESKTOP-6U4UTQC" time="1.224">
+  <properties/>
+  <testcase name="isTokenValid_withValidToken_returnsTrue()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="1.08"/>
+  <testcase name="extractClaim_returnsCorrectClaim()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.014"/>
+  <testcase name="extractUserId_whenStoredAsLong_returnsLong()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.013"/>
+  <testcase name="extractRole_returnsRole()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.01"/>
+  <testcase name="extractUserId_whenNoUserIdClaim_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.012"/>
+  <testcase name="extractUserId_whenStoredAsInteger_returnsLong()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.011"/>
+  <testcase name="isTokenValid_withExpiredToken_returnsFalse()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.018"/>
+  <testcase name="isTokenValid_withInvalidToken_returnsFalse()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.018"/>
+  <testcase name="getUserIdFromToken_returnsUserId()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.011"/>
+  <testcase name="extractUsername_returnsSubject()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.012"/>
+  <testcase name="extractRole_withAdminRole_returnsAdministrador()" classname="com.gastropolis.plazoleta.infrastructure.security.JwtServiceTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

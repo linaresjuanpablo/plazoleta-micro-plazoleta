@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestaurantUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.domain.usecase</a> &gt; <span class="el_source">RestaurantUseCase.java</span></div><h1>RestaurantUseCase.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.domain.usecase;
+
+import com.gastropolis.plazoleta.domain.api.IRestaurantServicePort;
+import com.gastropolis.plazoleta.domain.exception.RestaurantNotFoundException;
+import com.gastropolis.plazoleta.domain.model.CreateEmployeeModel;
+import com.gastropolis.plazoleta.domain.model.RestaurantModel;
+import com.gastropolis.plazoleta.domain.spi.IEmployeeRestaurantPersistencePort;
+import com.gastropolis.plazoleta.domain.spi.IRestaurantPersistencePort;
+import com.gastropolis.plazoleta.domain.spi.IUserClientPort;
+import org.springframework.data.domain.Page;
+
+public class RestaurantUseCase implements IRestaurantServicePort {
+
+    private static final String ROLE_PROPIETARIO = &quot;PROPIETARIO&quot;;
+
+    private final IRestaurantPersistencePort restaurantPersistencePort;
+    private final IUserClientPort userClientPort;
+    private final IEmployeeRestaurantPersistencePort employeeRestaurantPersistencePort;
+
+    public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort,
+                             IUserClientPort userClientPort,
+<span class="fc" id="L22">                             IEmployeeRestaurantPersistencePort employeeRestaurantPersistencePort) {</span>
+<span class="fc" id="L23">        this.restaurantPersistencePort = restaurantPersistencePort;</span>
+<span class="fc" id="L24">        this.userClientPort = userClientPort;</span>
+<span class="fc" id="L25">        this.employeeRestaurantPersistencePort = employeeRestaurantPersistencePort;</span>
+<span class="fc" id="L26">    }</span>
+
+    @Override
+    public RestaurantModel createRestaurant(RestaurantModel restaurantModel, String token) {
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (restaurantModel.getName().matches(&quot;^\\d+$&quot;)) {</span>
+<span class="fc" id="L31">            throw new IllegalArgumentException(&quot;El nombre del restaurante no puede ser solo números&quot;);</span>
+        }
+
+<span class="fc" id="L34">        String ownerRole = userClientPort.getUserRoleById(restaurantModel.getOwnerId(), token);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (!ROLE_PROPIETARIO.equalsIgnoreCase(ownerRole)) {</span>
+<span class="fc" id="L36">            throw new IllegalArgumentException(&quot;El usuario indicado no tiene el rol PROPIETARIO&quot;);</span>
+        }
+
+<span class="fc" id="L39">        return restaurantPersistencePort.saveRestaurant(restaurantModel);</span>
+    }
+
+    @Override
+    public Page&lt;RestaurantModel&gt; listRestaurants(int page, int size) {
+<span class="fc" id="L44">        return restaurantPersistencePort.findAllRestaurantsSortedByName(page, size);</span>
+    }
+
+    @Override
+    public RestaurantModel getRestaurantById(Long id) {
+<span class="fc" id="L49">        RestaurantModel restaurant = restaurantPersistencePort.findById(id);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (restaurant == null) {</span>
+<span class="fc" id="L51">            throw new RestaurantNotFoundException();</span>
+        }
+<span class="fc" id="L53">        return restaurant;</span>
+    }
+
+    @Override
+    public void createEmployee(CreateEmployeeModel model, Long ownerId, String token) {
+<span class="fc" id="L58">        RestaurantModel restaurant = restaurantPersistencePort.findByOwnerId(ownerId);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (restaurant == null) {</span>
+<span class="fc" id="L60">            throw new RestaurantNotFoundException();</span>
+        }
+
+<span class="fc" id="L63">        Long employeeId = userClientPort.createEmployee(model, token);</span>
+
+<span class="fc" id="L65">        employeeRestaurantPersistencePort.saveEmployeeRestaurant(employeeId, restaurant.getId());</span>
+<span class="fc" id="L66">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

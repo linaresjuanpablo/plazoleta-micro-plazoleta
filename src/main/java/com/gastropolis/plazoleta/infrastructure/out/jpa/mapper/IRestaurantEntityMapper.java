@@ -1,0 +1,17 @@
+package com.gastropolis.plazoleta.infrastructure.out.jpa.mapper;
+
+import com.gastropolis.plazoleta.domain.model.RestaurantModel;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.entity.RestaurantEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
+
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        unmappedSourcePolicy = ReportingPolicy.IGNORE)
+public interface IRestaurantEntityMapper {
+    RestaurantEntity toEntity(RestaurantModel model);
+    RestaurantModel toModel(RestaurantEntity entity);
+    List<RestaurantModel> toModelList(List<RestaurantEntity> entities);
+}

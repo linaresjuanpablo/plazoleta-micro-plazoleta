@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.configuration.SecurityConfigTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:49" hostname="DESKTOP-6U4UTQC" time="0.726">
+  <properties/>
+  <testcase name="securityConfig_canBeInstantiated()" classname="com.gastropolis.plazoleta.infrastructure.configuration.SecurityConfigTest" time="0.173"/>
+  <testcase name="securityFilterChain_withDeepStubs_buildsSuccessfully()" classname="com.gastropolis.plazoleta.infrastructure.configuration.SecurityConfigTest" time="0.552"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

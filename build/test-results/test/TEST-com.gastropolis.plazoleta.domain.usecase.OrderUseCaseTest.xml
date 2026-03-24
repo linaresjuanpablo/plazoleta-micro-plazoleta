@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:46" hostname="DESKTOP-6U4UTQC" time="0.774">
+  <properties/>
+  <testcase name="createOrder_whenDishBelongsToDifferentRestaurant_throwsDishesNotFromSameRestaurantException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.489"/>
+  <testcase name="cancelOrder_whenOrderNotPendiente_throwsInvalidOrderStateException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="deliverOrder_whenRestaurantNullForEmployee_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="markOrderReady_whenOrderNotFound_throwsOrderNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="createOrder_happyPath_whenSavedDishesIsNull_doesNotThrow()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.013"/>
+  <testcase name="createOrder_happyPath_withRestaurantNull_setsRestaurantNameToNull()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.008"/>
+  <testcase name="deliverOrder_whenOrderNotListo_throwsInvalidOrderStateException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.012"/>
+  <testcase name="createOrder_whenDishNotFound_throwsDishNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.008"/>
+  <testcase name="assignOrder_whenRestaurantNullForEmployee_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.009"/>
+  <testcase name="cancelOrder_happyPath_setsStatusCanceladoAndRegistersLog()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.01"/>
+  <testcase name="markOrderReady_happyPath_setsPinAndSendsSmS()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.008"/>
+  <testcase name="assignOrder_happyPath_setsStatusAndEmployeeAndRegistersLog()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.011"/>
+  <testcase name="deliverOrder_whenOrderNotFound_throwsOrderNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="createOrder_happyPath_withRestaurantFound_setsFieldsAndRegistersLog()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="assignOrder_whenOrderNotPendiente_throwsInvalidOrderStateException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.012"/>
+  <testcase name="createOrder_whenClientHasActiveOrders_throwsClientHasActiveOrderException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="markOrderReady_whenOrderBelongsToDifferentRestaurant_throwsNotRestaurantOwnerException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="markOrderReady_whenOrderNotEnPreparacion_throwsInvalidOrderStateException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.009"/>
+  <testcase name="listOrders_withNullStatus_callsFindByRestaurantId()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="assignOrder_whenOrderNotFound_throwsOrderNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.011"/>
+  <testcase name="assignOrder_whenOrderBelongsToDifferentRestaurant_throwsNotRestaurantOwnerException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.009"/>
+  <testcase name="markOrderReady_whenRestaurantNullForEmployee_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="listOrders_withStatus_callsFindByRestaurantIdAndStatus_andSetsClientName()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="deliverOrder_happyPath_whenRestaurantNull_setsRestaurantNameNull()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.005"/>
+  <testcase name="cancelOrder_whenOrderNotFound_throwsOrderNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.007"/>
+  <testcase name="listOrders_withBlankStatus_callsFindByRestaurantId()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.008"/>
+  <testcase name="listOrders_whenRestaurantIdNullForEmployee_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.005"/>
+  <testcase name="deliverOrder_whenPinDoesNotMatch_throwsInvalidPinException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.013"/>
+  <testcase name="deliverOrder_happyPath_withRestaurantFound_setsEntregadoAndRegistersLog()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.006"/>
+  <testcase name="deliverOrder_whenOrderBelongsToDifferentRestaurant_throwsNotRestaurantOwnerException()" classname="com.gastropolis.plazoleta.domain.usecase.OrderUseCaseTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

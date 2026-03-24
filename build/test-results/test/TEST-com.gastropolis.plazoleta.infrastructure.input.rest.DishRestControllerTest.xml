@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.input.rest.DishRestControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.239">
+  <properties/>
+  <testcase name="createDish_delegatesToHandlerWithAuthenticatedUserId_andReturnsCreated()" classname="com.gastropolis.plazoleta.infrastructure.input.rest.DishRestControllerTest" time="0.227"/>
+  <testcase name="toggleDishActive_delegatesToHandlerWithIdAndAuthenticatedUserId_andReturnsOk()" classname="com.gastropolis.plazoleta.infrastructure.input.rest.DishRestControllerTest" time="0.004"/>
+  <testcase name="updateDish_delegatesToHandlerWithIdAndAuthenticatedUserId_andReturnsOk()" classname="com.gastropolis.plazoleta.infrastructure.input.rest.DishRestControllerTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:46" hostname="DESKTOP-6U4UTQC" time="0.044">
+  <properties/>
+  <testcase name="toRestaurantModel_mapsAllFieldsFromDto()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.005"/>
+  <testcase name="toRestaurantResponseDtoList_withNullList_returnsNull()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.006"/>
+  <testcase name="toRestaurantResponseDtoList_mapsList()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.004"/>
+  <testcase name="toRestaurantResponseDto_withNullModel_returnsNull()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.006"/>
+  <testcase name="toRestaurantModel_withNullDto_returnsNull()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.004"/>
+  <testcase name="toRestaurantResponseDto_mapsNameAndLogoUrl()" classname="com.gastropolis.plazoleta.application.mapper.RestaurantMapperTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

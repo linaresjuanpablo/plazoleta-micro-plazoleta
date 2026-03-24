@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.MessagingFeignAdapterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.016">
+  <properties/>
+  <testcase name="sendSms_callsFeignClientExactlyOnce()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.MessagingFeignAdapterTest" time="0.007"/>
+  <testcase name="sendSms_buildsDtoAndCallsFeignClient()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.MessagingFeignAdapterTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

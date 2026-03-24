@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.application.handler.impl</a> &gt; <span class="el_source">OrderHandler.java</span></div><h1>OrderHandler.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.application.handler.impl;
+
+import com.gastropolis.plazoleta.application.dto.request.CreateOrderRequestDto;
+import com.gastropolis.plazoleta.application.dto.request.DeliverOrderRequestDto;
+import com.gastropolis.plazoleta.application.dto.response.OrderResponseDto;
+import com.gastropolis.plazoleta.application.handler.IOrderHandler;
+import com.gastropolis.plazoleta.application.mapper.IOrderRequestMapper;
+import com.gastropolis.plazoleta.application.mapper.IOrderResponseMapper;
+import com.gastropolis.plazoleta.domain.api.IOrderServicePort;
+import com.gastropolis.plazoleta.domain.model.OrderModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class OrderHandler implements IOrderHandler {
+
+    private final IOrderServicePort orderServicePort;
+    private final IOrderRequestMapper orderRequestMapper;
+    private final IOrderResponseMapper orderResponseMapper;
+
+    @Override
+    public OrderResponseDto createOrder(CreateOrderRequestDto dto, Long clientId, String token) {
+<span class="fc" id="L27">        OrderModel model = orderRequestMapper.toOrderModel(dto);</span>
+<span class="fc" id="L28">        OrderModel saved = orderServicePort.createOrder(model, clientId, token);</span>
+<span class="fc" id="L29">        return orderResponseMapper.toOrderResponseDto(saved);</span>
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page&lt;OrderResponseDto&gt; listOrders(Long employeeId, String status, int page, int size, String token) {
+<span class="fc" id="L35">        Page&lt;OrderModel&gt; orderPage = orderServicePort.listOrders(employeeId, status, page, size, token);</span>
+<span class="fc" id="L36">        return orderPage.map(orderResponseMapper::toOrderResponseDto);</span>
+    }
+
+    @Override
+    public OrderResponseDto assignOrder(Long orderId, Long employeeId, String token) {
+<span class="fc" id="L41">        OrderModel updated = orderServicePort.assignOrder(orderId, employeeId, token);</span>
+<span class="fc" id="L42">        return orderResponseMapper.toOrderResponseDto(updated);</span>
+    }
+
+    @Override
+    public OrderResponseDto markOrderReady(Long orderId, Long employeeId, String token) {
+<span class="fc" id="L47">        OrderModel updated = orderServicePort.markOrderReady(orderId, employeeId, token);</span>
+<span class="fc" id="L48">        return orderResponseMapper.toOrderResponseDto(updated);</span>
+    }
+
+    @Override
+    public OrderResponseDto deliverOrder(Long orderId, Long employeeId, DeliverOrderRequestDto dto, String token) {
+<span class="fc" id="L53">        OrderModel updated = orderServicePort.deliverOrder(orderId, employeeId, dto.getPin(), token);</span>
+<span class="fc" id="L54">        return orderResponseMapper.toOrderResponseDto(updated);</span>
+    }
+
+    @Override
+    public OrderResponseDto cancelOrder(Long orderId, Long clientId, String token) {
+<span class="fc" id="L59">        OrderModel updated = orderServicePort.cancelOrder(orderId, clientId, token);</span>
+<span class="fc" id="L60">        return orderResponseMapper.toOrderResponseDto(updated);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

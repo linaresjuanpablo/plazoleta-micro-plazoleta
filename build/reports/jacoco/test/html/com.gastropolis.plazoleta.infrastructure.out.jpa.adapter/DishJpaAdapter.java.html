@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DishJpaAdapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.infrastructure.out.jpa.adapter</a> &gt; <span class="el_source">DishJpaAdapter.java</span></div><h1>DishJpaAdapter.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.infrastructure.out.jpa.adapter;
+
+import com.gastropolis.plazoleta.domain.model.DishModel;
+import com.gastropolis.plazoleta.domain.spi.IDishPersistencePort;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.entity.CategoryEntity;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.entity.DishEntity;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.entity.RestaurantEntity;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.mapper.IDishEntityMapper;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.repository.ICategoryRepository;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.repository.IDishRepository;
+import com.gastropolis.plazoleta.infrastructure.out.jpa.repository.IRestaurantRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+public class DishJpaAdapter implements IDishPersistencePort {
+
+    private final IDishRepository dishRepository;
+    private final IDishEntityMapper dishEntityMapper;
+    private final ICategoryRepository categoryRepository;
+    private final IRestaurantRepository restaurantRepository;
+
+    public DishJpaAdapter(IDishRepository dishRepository, IDishEntityMapper dishEntityMapper,
+<span class="fc" id="L23">                          ICategoryRepository categoryRepository, IRestaurantRepository restaurantRepository) {</span>
+<span class="fc" id="L24">        this.dishRepository = dishRepository;</span>
+<span class="fc" id="L25">        this.dishEntityMapper = dishEntityMapper;</span>
+<span class="fc" id="L26">        this.categoryRepository = categoryRepository;</span>
+<span class="fc" id="L27">        this.restaurantRepository = restaurantRepository;</span>
+<span class="fc" id="L28">    }</span>
+
+    @Override
+    public DishModel saveDish(DishModel dishModel) {
+        DishEntity entity;
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (dishModel.getId() != null) {</span>
+<span class="fc" id="L34">            entity = dishRepository.findById(dishModel.getId()).orElse(new DishEntity());</span>
+        } else {
+<span class="fc" id="L36">            entity = new DishEntity();</span>
+        }
+
+<span class="fc" id="L39">        entity.setName(dishModel.getName());</span>
+<span class="fc" id="L40">        entity.setDescription(dishModel.getDescription());</span>
+<span class="fc" id="L41">        entity.setPrice(dishModel.getPrice());</span>
+<span class="fc" id="L42">        entity.setImageUrl(dishModel.getImageUrl());</span>
+<span class="fc" id="L43">        entity.setActive(dishModel.getActive());</span>
+
+<span class="fc" id="L45">        CategoryEntity category = categoryRepository.getReferenceById(dishModel.getCategoryId());</span>
+<span class="fc" id="L46">        entity.setCategory(category);</span>
+
+<span class="fc" id="L48">        RestaurantEntity restaurant = restaurantRepository.getReferenceById(dishModel.getRestaurantId());</span>
+<span class="fc" id="L49">        entity.setRestaurant(restaurant);</span>
+
+<span class="fc" id="L51">        DishEntity saved = dishRepository.save(entity);</span>
+<span class="fc" id="L52">        return dishEntityMapper.toModel(saved);</span>
+    }
+
+    @Override
+    public DishModel findById(Long id) {
+<span class="fc" id="L57">        return dishRepository.findById(id)</span>
+<span class="fc" id="L58">                .map(dishEntityMapper::toModel)</span>
+<span class="fc" id="L59">                .orElse(null);</span>
+    }
+
+    @Override
+    public Page&lt;DishModel&gt; findByRestaurantId(Long restaurantId, int page, int size) {
+<span class="fc" id="L64">        Page&lt;DishEntity&gt; entityPage = dishRepository.findByRestaurantId(restaurantId, PageRequest.of(page, size));</span>
+<span class="fc" id="L65">        return entityPage.map(dishEntityMapper::toModel);</span>
+    }
+
+    @Override
+    public Page&lt;DishModel&gt; findByRestaurantIdAndCategoryId(Long restaurantId, Long categoryId, int page, int size) {
+<span class="fc" id="L70">        Page&lt;DishEntity&gt; entityPage = dishRepository.findByRestaurantIdAndCategoryId(restaurantId, categoryId, PageRequest.of(page, size));</span>
+<span class="fc" id="L71">        return entityPage.map(dishEntityMapper::toModel);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

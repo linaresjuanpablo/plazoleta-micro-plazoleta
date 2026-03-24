@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DishUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.domain.usecase</a> &gt; <span class="el_source">DishUseCase.java</span></div><h1>DishUseCase.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.domain.usecase;
+
+import com.gastropolis.plazoleta.domain.api.IDishServicePort;
+import com.gastropolis.plazoleta.domain.exception.DishNotFoundException;
+import com.gastropolis.plazoleta.domain.exception.NotRestaurantOwnerException;
+import com.gastropolis.plazoleta.domain.exception.RestaurantNotFoundException;
+import com.gastropolis.plazoleta.domain.model.DishModel;
+import com.gastropolis.plazoleta.domain.model.RestaurantModel;
+import com.gastropolis.plazoleta.domain.spi.IDishPersistencePort;
+import com.gastropolis.plazoleta.domain.spi.IRestaurantPersistencePort;
+import org.springframework.data.domain.Page;
+
+public class DishUseCase implements IDishServicePort {
+
+    private final IDishPersistencePort dishPersistencePort;
+    private final IRestaurantPersistencePort restaurantPersistencePort;
+
+<span class="fc" id="L18">    public DishUseCase(IDishPersistencePort dishPersistencePort, IRestaurantPersistencePort restaurantPersistencePort) {</span>
+<span class="fc" id="L19">        this.dishPersistencePort = dishPersistencePort;</span>
+<span class="fc" id="L20">        this.restaurantPersistencePort = restaurantPersistencePort;</span>
+<span class="fc" id="L21">    }</span>
+
+    @Override
+    public DishModel createDish(DishModel dishModel, Long authenticatedOwnerId) {
+<span class="fc" id="L25">        RestaurantModel restaurant = restaurantPersistencePort.findById(dishModel.getRestaurantId());</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (restaurant == null) {</span>
+<span class="fc" id="L27">            throw new RestaurantNotFoundException();</span>
+        }
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (!restaurant.getOwnerId().equals(authenticatedOwnerId)) {</span>
+<span class="fc" id="L30">            throw new NotRestaurantOwnerException();</span>
+        }
+<span class="fc" id="L32">        dishModel.setActive(true);</span>
+<span class="fc" id="L33">        return dishPersistencePort.saveDish(dishModel);</span>
+    }
+
+    @Override
+    public DishModel updateDish(Long dishId, Integer price, String description, Long authenticatedOwnerId) {
+<span class="fc" id="L38">        DishModel dish = dishPersistencePort.findById(dishId);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (dish == null) {</span>
+<span class="fc" id="L40">            throw new DishNotFoundException();</span>
+        }
+<span class="fc" id="L42">        RestaurantModel restaurant = restaurantPersistencePort.findById(dish.getRestaurantId());</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (restaurant == null) {</span>
+<span class="fc" id="L44">            throw new RestaurantNotFoundException();</span>
+        }
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (!restaurant.getOwnerId().equals(authenticatedOwnerId)) {</span>
+<span class="fc" id="L47">            throw new NotRestaurantOwnerException();</span>
+        }
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (price != null) {</span>
+<span class="fc" id="L50">            dish.setPrice(price);</span>
+        }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (description != null) {</span>
+<span class="fc" id="L53">            dish.setDescription(description);</span>
+        }
+<span class="fc" id="L55">        return dishPersistencePort.saveDish(dish);</span>
+    }
+
+    @Override
+    public DishModel toggleDishActive(Long dishId, Long authenticatedOwnerId) {
+<span class="fc" id="L60">        DishModel dish = dishPersistencePort.findById(dishId);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (dish == null) {</span>
+<span class="fc" id="L62">            throw new DishNotFoundException();</span>
+        }
+<span class="fc" id="L64">        RestaurantModel restaurant = restaurantPersistencePort.findById(dish.getRestaurantId());</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (restaurant == null) {</span>
+<span class="fc" id="L66">            throw new RestaurantNotFoundException();</span>
+        }
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (!restaurant.getOwnerId().equals(authenticatedOwnerId)) {</span>
+<span class="fc" id="L69">            throw new NotRestaurantOwnerException();</span>
+        }
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        dish.setActive(!dish.getActive());</span>
+<span class="fc" id="L72">        return dishPersistencePort.saveDish(dish);</span>
+    }
+
+    @Override
+    public Page&lt;DishModel&gt; listDishesByRestaurant(Long restaurantId, Long categoryId, int page, int size) {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (categoryId != null) {</span>
+<span class="fc" id="L78">            return dishPersistencePort.findByRestaurantIdAndCategoryId(restaurantId, categoryId, page, size);</span>
+        }
+<span class="fc" id="L80">        return dishPersistencePort.findByRestaurantId(restaurantId, page, size);</span>
+    }
+
+    @Override
+    public DishModel getDishById(Long id) {
+<span class="fc" id="L85">        DishModel dish = dishPersistencePort.findById(id);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (dish == null) {</span>
+<span class="fc" id="L87">            throw new DishNotFoundException();</span>
+        }
+<span class="fc" id="L89">        return dish;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

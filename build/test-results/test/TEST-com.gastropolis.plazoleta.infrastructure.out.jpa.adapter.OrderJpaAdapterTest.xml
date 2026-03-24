@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.077">
+  <properties/>
+  <testcase name="findActiveOrdersByClientId_returnsListOfModels()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.005"/>
+  <testcase name="findByRestaurantIdAndStatus_returnsPageOfModels()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.006"/>
+  <testcase name="findById_whenExists_returnsModel()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.004"/>
+  <testcase name="findByRestaurantId_returnsPageOfModels()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.004"/>
+  <testcase name="saveOrder_whenIdIsNotNull_andEntityNotFound_createsNewEntityAndSaves()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.006"/>
+  <testcase name="findRestaurantIdByEmployeeId_whenNotFound_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.003"/>
+  <testcase name="findById_whenNotExists_returnsNull()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.007"/>
+  <testcase name="saveOrder_whenIdIsNull_andDishesIsNull_createsNewEntityWithoutDishes()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.003"/>
+  <testcase name="saveOrder_whenIdIsNull_andHasDishes_savesOrderAndDishes()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.008"/>
+  <testcase name="findRestaurantIdByEmployeeId_whenFound_returnsRestaurantId()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.007"/>
+  <testcase name="saveOrder_whenIdIsNotNull_andEntityExists_updatesFieldsAndSaves()" classname="com.gastropolis.plazoleta.infrastructure.out.jpa.adapter.OrderJpaAdapterTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

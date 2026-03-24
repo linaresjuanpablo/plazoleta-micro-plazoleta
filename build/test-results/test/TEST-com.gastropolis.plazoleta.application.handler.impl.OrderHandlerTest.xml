@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:42" hostname="DESKTOP-6U4UTQC" time="0.327">
+  <properties/>
+  <testcase name="cancelOrder_delegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.253"/>
+  <testcase name="assignOrder_delegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.009"/>
+  <testcase name="deliverOrder_extractsPinFromDtoAndDelegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.016"/>
+  <testcase name="markOrderReady_delegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.013"/>
+  <testcase name="createOrder_mapsRequestAndDelegatesAndReturnsResponseDto()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.006"/>
+  <testcase name="listOrders_withNullStatus_delegatesAndMapPage()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.008"/>
+  <testcase name="listOrders_withStatus_delegatesAndMapPage()" classname="com.gastropolis.plazoleta.application.handler.impl.OrderHandlerTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.UserFeignAdapterTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:51" hostname="DESKTOP-6U4UTQC" time="0.02">
+  <properties/>
+  <testcase name="getUserPhoneById_returnsPhone()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.UserFeignAdapterTest" time="0.003"/>
+  <testcase name="getUserRoleById_returnsRoleName()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.UserFeignAdapterTest" time="0.005"/>
+  <testcase name="getUserNameById_returnsConcatenatedNameAndLastName()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.UserFeignAdapterTest" time="0.005"/>
+  <testcase name="createEmployee_buildsRequestDtoAndReturnsId()" classname="com.gastropolis.plazoleta.infrastructure.out.feign.adapter.UserFeignAdapterTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

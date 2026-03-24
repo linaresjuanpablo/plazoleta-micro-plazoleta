@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:47" hostname="DESKTOP-6U4UTQC" time="0.14">
+  <properties/>
+  <testcase name="createRestaurant_whenRoleIsPropietarioLowercase_succeeds()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.073"/>
+  <testcase name="createEmployee_happyPath_createsEmployeeAndSavesRelation()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.007"/>
+  <testcase name="createRestaurant_happyPath_savesAndReturnsRestaurant()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.004"/>
+  <testcase name="listRestaurants_delegatesToPersistencePort()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.004"/>
+  <testcase name="getRestaurantById_whenFound_returnsRestaurant()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.004"/>
+  <testcase name="createEmployee_whenRestaurantNotFoundForOwner_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.005"/>
+  <testcase name="createRestaurant_whenNameIsAllDigits_throwsIllegalArgumentException()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.003"/>
+  <testcase name="createRestaurant_whenRoleIsNotPropietario_throwsIllegalArgumentException()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.005"/>
+  <testcase name="getRestaurantById_whenNotFound_throwsRestaurantNotFoundException()" classname="com.gastropolis.plazoleta.domain.usecase.RestaurantUseCaseTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

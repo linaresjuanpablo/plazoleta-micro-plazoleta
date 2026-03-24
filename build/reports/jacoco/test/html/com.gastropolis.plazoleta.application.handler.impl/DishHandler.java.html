@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DishHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.application.handler.impl</a> &gt; <span class="el_source">DishHandler.java</span></div><h1>DishHandler.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.application.handler.impl;
+
+import com.gastropolis.plazoleta.application.dto.request.CreateDishRequestDto;
+import com.gastropolis.plazoleta.application.dto.request.UpdateDishRequestDto;
+import com.gastropolis.plazoleta.application.dto.response.DishResponseDto;
+import com.gastropolis.plazoleta.application.handler.IDishHandler;
+import com.gastropolis.plazoleta.application.mapper.IDishRequestMapper;
+import com.gastropolis.plazoleta.application.mapper.IDishResponseMapper;
+import com.gastropolis.plazoleta.domain.api.IDishServicePort;
+import com.gastropolis.plazoleta.domain.model.DishModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class DishHandler implements IDishHandler {
+
+    private final IDishServicePort dishServicePort;
+    private final IDishRequestMapper dishRequestMapper;
+    private final IDishResponseMapper dishResponseMapper;
+
+    @Override
+    public DishResponseDto createDish(CreateDishRequestDto dto, Long authenticatedOwnerId) {
+<span class="fc" id="L27">        DishModel model = dishRequestMapper.toDishModel(dto);</span>
+<span class="fc" id="L28">        DishModel saved = dishServicePort.createDish(model, authenticatedOwnerId);</span>
+<span class="fc" id="L29">        return dishResponseMapper.toDishResponseDto(saved);</span>
+    }
+
+    @Override
+    public DishResponseDto updateDish(Long dishId, UpdateDishRequestDto dto, Long authenticatedOwnerId) {
+<span class="fc" id="L34">        DishModel updated = dishServicePort.updateDish(dishId, dto.getPrice(), dto.getDescription(), authenticatedOwnerId);</span>
+<span class="fc" id="L35">        return dishResponseMapper.toDishResponseDto(updated);</span>
+    }
+
+    @Override
+    public DishResponseDto toggleDishActive(Long dishId, Long authenticatedOwnerId) {
+<span class="fc" id="L40">        DishModel updated = dishServicePort.toggleDishActive(dishId, authenticatedOwnerId);</span>
+<span class="fc" id="L41">        return dishResponseMapper.toDishResponseDto(updated);</span>
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page&lt;DishResponseDto&gt; listDishesByRestaurant(Long restaurantId, Long categoryId, int page, int size) {
+<span class="fc" id="L47">        Page&lt;DishModel&gt; dishPage = dishServicePort.listDishesByRestaurant(restaurantId, categoryId, page, size);</span>
+<span class="fc" id="L48">        return dishPage.map(dishResponseMapper::toDishResponseDto);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

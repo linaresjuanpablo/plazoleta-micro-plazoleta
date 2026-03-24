@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-plazoleta</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.plazoleta.domain.usecase</a> &gt; <span class="el_source">OrderUseCase.java</span></div><h1>OrderUseCase.java</h1><pre class="source lang-java linenums">package com.gastropolis.plazoleta.domain.usecase;
+
+import com.gastropolis.plazoleta.domain.api.IOrderServicePort;
+import com.gastropolis.plazoleta.domain.exception.*;
+import com.gastropolis.plazoleta.domain.model.DishModel;
+import com.gastropolis.plazoleta.domain.model.OrderDishModel;
+import com.gastropolis.plazoleta.domain.model.OrderModel;
+import com.gastropolis.plazoleta.domain.model.RestaurantModel;
+import com.gastropolis.plazoleta.domain.spi.*;
+import org.springframework.data.domain.Page;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+public class OrderUseCase implements IOrderServicePort {
+
+    private static final String STATUS_PENDIENTE = &quot;PENDIENTE&quot;;
+    private static final String STATUS_EN_PREPARACION = &quot;EN_PREPARACION&quot;;
+    private static final String STATUS_LISTO = &quot;LISTO&quot;;
+    private static final String STATUS_ENTREGADO = &quot;ENTREGADO&quot;;
+    private static final String STATUS_CANCELADO = &quot;CANCELADO&quot;;
+<span class="fc" id="L25">    private static final List&lt;String&gt; ACTIVE_STATUSES = List.of(STATUS_PENDIENTE, STATUS_EN_PREPARACION, STATUS_LISTO);</span>
+
+    private final IOrderPersistencePort orderPersistencePort;
+    private final IDishPersistencePort dishPersistencePort;
+    private final IRestaurantPersistencePort restaurantPersistencePort;
+    private final ITraceabilityClientPort traceabilityClientPort;
+    private final IMessagingClientPort messagingClientPort;
+    private final IUserClientPort userClientPort;
+
+    public OrderUseCase(IOrderPersistencePort orderPersistencePort,
+                        IDishPersistencePort dishPersistencePort,
+                        IRestaurantPersistencePort restaurantPersistencePort,
+                        ITraceabilityClientPort traceabilityClientPort,
+                        IMessagingClientPort messagingClientPort,
+<span class="fc" id="L39">                        IUserClientPort userClientPort) {</span>
+<span class="fc" id="L40">        this.orderPersistencePort = orderPersistencePort;</span>
+<span class="fc" id="L41">        this.dishPersistencePort = dishPersistencePort;</span>
+<span class="fc" id="L42">        this.restaurantPersistencePort = restaurantPersistencePort;</span>
+<span class="fc" id="L43">        this.traceabilityClientPort = traceabilityClientPort;</span>
+<span class="fc" id="L44">        this.messagingClientPort = messagingClientPort;</span>
+<span class="fc" id="L45">        this.userClientPort = userClientPort;</span>
+<span class="fc" id="L46">    }</span>
+
+    @Override
+    public OrderModel createOrder(OrderModel orderModel, Long clientId, String token) {
+<span class="fc" id="L50">        List&lt;OrderModel&gt; activeOrders = orderPersistencePort.findActiveOrdersByClientId(clientId, ACTIVE_STATUSES);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (!activeOrders.isEmpty()) {</span>
+<span class="fc" id="L52">            throw new ClientHasActiveOrderException();</span>
+        }
+
+<span class="fc" id="L55">        Map&lt;Long, String&gt; dishNames = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (OrderDishModel orderDish : orderModel.getDishes()) {</span>
+<span class="fc" id="L57">            DishModel dish = dishPersistencePort.findById(orderDish.getDishId());</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (dish == null) {</span>
+<span class="fc" id="L59">                throw new DishNotFoundException(&quot;Plato no encontrado con id: &quot; + orderDish.getDishId());</span>
+            }
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (!dish.getRestaurantId().equals(orderModel.getRestaurantId())) {</span>
+<span class="fc" id="L62">                throw new DishesNotFromSameRestaurantException();</span>
+            }
+<span class="fc" id="L64">            dishNames.put(dish.getId(), dish.getName());</span>
+<span class="fc" id="L65">        }</span>
+
+<span class="fc" id="L67">        orderModel.setClientId(clientId);</span>
+<span class="fc" id="L68">        orderModel.setStatus(STATUS_PENDIENTE);</span>
+<span class="fc" id="L69">        orderModel.setDate(LocalDateTime.now());</span>
+<span class="fc" id="L70">        orderModel.setEmployeeId(null);</span>
+<span class="fc" id="L71">        orderModel.setSecurityPin(null);</span>
+
+<span class="fc" id="L73">        OrderModel saved = orderPersistencePort.saveOrder(orderModel);</span>
+
+<span class="fc" id="L75">        RestaurantModel restaurant = restaurantPersistencePort.findById(saved.getRestaurantId());</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        saved.setRestaurantName(restaurant != null ? restaurant.getName() : null);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (saved.getDishes() != null) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (OrderDishModel dishModel : saved.getDishes()) {</span>
+<span class="fc" id="L79">                dishModel.setDishName(dishNames.get(dishModel.getDishId()));</span>
+<span class="fc" id="L80">            }</span>
+        }
+
+<span class="fc" id="L83">        traceabilityClientPort.registerLog(</span>
+<span class="fc" id="L84">                saved.getId(), clientId, null, null, STATUS_PENDIENTE, LocalDateTime.now(), token</span>
+        );
+
+<span class="fc" id="L87">        return saved;</span>
+    }
+
+    @Override
+    public Page&lt;OrderModel&gt; listOrders(Long employeeId, String status, int page, int size, String token) {
+<span class="fc" id="L92">        Long restaurantId = orderPersistencePort.findRestaurantIdByEmployeeId(employeeId);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (restaurantId == null) {</span>
+<span class="fc" id="L94">            throw new RestaurantNotFoundException(&quot;El empleado no pertenece a ningún restaurante&quot;);</span>
+        }
+
+        Page&lt;OrderModel&gt; orders;
+<span class="fc bfc" id="L98" title="All 4 branches covered.">        if (status != null &amp;&amp; !status.isBlank()) {</span>
+<span class="fc" id="L99">            orders = orderPersistencePort.findByRestaurantIdAndStatus(restaurantId, status, page, size);</span>
+        } else {
+<span class="fc" id="L101">            orders = orderPersistencePort.findByRestaurantId(restaurantId, page, size);</span>
+        }
+
+<span class="fc" id="L104">        orders.getContent().forEach(order -&gt; {</span>
+<span class="fc" id="L105">            String clientName = userClientPort.getUserNameById(order.getClientId(), token);</span>
+<span class="fc" id="L106">            order.setClientName(clientName);</span>
+<span class="fc" id="L107">        });</span>
+
+<span class="fc" id="L109">        return orders;</span>
+    }
+
+    @Override
+    public OrderModel assignOrder(Long orderId, Long employeeId, String token) {
+<span class="fc" id="L114">        Long restaurantId = orderPersistencePort.findRestaurantIdByEmployeeId(employeeId);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (restaurantId == null) {</span>
+<span class="fc" id="L116">            throw new RestaurantNotFoundException(&quot;El empleado no pertenece a ningún restaurante&quot;);</span>
+        }
+
+<span class="fc" id="L119">        OrderModel order = orderPersistencePort.findById(orderId);</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (order == null) {</span>
+<span class="fc" id="L121">            throw new OrderNotFoundException();</span>
+        }
+
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (!order.getRestaurantId().equals(restaurantId)) {</span>
+<span class="fc" id="L125">            throw new NotRestaurantOwnerException(&quot;El pedido no pertenece al restaurante del empleado&quot;);</span>
+        }
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (!STATUS_PENDIENTE.equals(order.getStatus())) {</span>
+<span class="fc" id="L129">            throw new InvalidOrderStateException(&quot;El pedido no está en estado PENDIENTE&quot;);</span>
+        }
+
+<span class="fc" id="L132">        String previousStatus = order.getStatus();</span>
+<span class="fc" id="L133">        order.setStatus(STATUS_EN_PREPARACION);</span>
+<span class="fc" id="L134">        order.setEmployeeId(employeeId);</span>
+<span class="fc" id="L135">        OrderModel saved = orderPersistencePort.saveOrder(order);</span>
+
+<span class="fc" id="L137">        traceabilityClientPort.registerLog(</span>
+<span class="fc" id="L138">                orderId, order.getClientId(), employeeId, previousStatus, STATUS_EN_PREPARACION, LocalDateTime.now(), token</span>
+        );
+
+<span class="fc" id="L141">        String clientName = userClientPort.getUserNameById(saved.getClientId(), token);</span>
+<span class="fc" id="L142">        saved.setClientName(clientName);</span>
+
+<span class="fc" id="L144">        return saved;</span>
+    }
+
+    @Override
+    public OrderModel markOrderReady(Long orderId, Long employeeId, String token) {
+<span class="fc" id="L149">        Long restaurantId = orderPersistencePort.findRestaurantIdByEmployeeId(employeeId);</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (restaurantId == null) {</span>
+<span class="fc" id="L151">            throw new RestaurantNotFoundException(&quot;El empleado no pertenece a ningún restaurante&quot;);</span>
+        }
+
+<span class="fc" id="L154">        OrderModel order = orderPersistencePort.findById(orderId);</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (order == null) {</span>
+<span class="fc" id="L156">            throw new OrderNotFoundException();</span>
+        }
+
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (!order.getRestaurantId().equals(restaurantId)) {</span>
+<span class="fc" id="L160">            throw new NotRestaurantOwnerException(&quot;El pedido no pertenece al restaurante del empleado&quot;);</span>
+        }
+
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        if (!STATUS_EN_PREPARACION.equals(order.getStatus())) {</span>
+<span class="fc" id="L164">            throw new InvalidOrderStateException(&quot;El pedido no está en estado EN_PREPARACION&quot;);</span>
+        }
+
+<span class="fc" id="L167">        String pin = String.format(&quot;%04d&quot;, new Random().nextInt(10000));</span>
+<span class="fc" id="L168">        String previousStatus = order.getStatus();</span>
+<span class="fc" id="L169">        order.setStatus(STATUS_LISTO);</span>
+<span class="fc" id="L170">        order.setSecurityPin(pin);</span>
+<span class="fc" id="L171">        OrderModel saved = orderPersistencePort.saveOrder(order);</span>
+
+<span class="fc" id="L173">        traceabilityClientPort.registerLog(</span>
+<span class="fc" id="L174">                orderId, order.getClientId(), employeeId, previousStatus, STATUS_LISTO, LocalDateTime.now(), token</span>
+        );
+
+<span class="fc" id="L177">        String clientPhone = userClientPort.getUserPhoneById(order.getClientId(), token);</span>
+<span class="fc" id="L178">        messagingClientPort.sendSms(</span>
+                clientPhone,
+                &quot;Tu pedido está listo. PIN de recogida: &quot; + pin,
+                token
+        );
+
+<span class="fc" id="L184">        String clientName = userClientPort.getUserNameById(saved.getClientId(), token);</span>
+<span class="fc" id="L185">        saved.setClientName(clientName);</span>
+
+<span class="fc" id="L187">        return saved;</span>
+    }
+
+    @Override
+    public OrderModel deliverOrder(Long orderId, Long employeeId, String pin, String token) {
+<span class="fc" id="L192">        Long restaurantId = orderPersistencePort.findRestaurantIdByEmployeeId(employeeId);</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (restaurantId == null) {</span>
+<span class="fc" id="L194">            throw new RestaurantNotFoundException(&quot;El empleado no pertenece a ningún restaurante&quot;);</span>
+        }
+
+<span class="fc" id="L197">        OrderModel order = orderPersistencePort.findById(orderId);</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        if (order == null) {</span>
+<span class="fc" id="L199">            throw new OrderNotFoundException();</span>
+        }
+
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        if (!order.getRestaurantId().equals(restaurantId)) {</span>
+<span class="fc" id="L203">            throw new NotRestaurantOwnerException(&quot;El pedido no pertenece al restaurante del empleado&quot;);</span>
+        }
+
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        if (!STATUS_LISTO.equals(order.getStatus())) {</span>
+<span class="fc" id="L207">            throw new InvalidOrderStateException(&quot;El pedido no está en estado LISTO&quot;);</span>
+        }
+
+<span class="fc bfc" id="L210" title="All 2 branches covered.">        if (!pin.equals(order.getSecurityPin())) {</span>
+<span class="fc" id="L211">            throw new InvalidPinException();</span>
+        }
+
+<span class="fc" id="L214">        String previousStatus = order.getStatus();</span>
+<span class="fc" id="L215">        order.setStatus(STATUS_ENTREGADO);</span>
+<span class="fc" id="L216">        OrderModel saved = orderPersistencePort.saveOrder(order);</span>
+
+<span class="fc" id="L218">        traceabilityClientPort.registerLog(</span>
+<span class="fc" id="L219">                orderId, order.getClientId(), employeeId, previousStatus, STATUS_ENTREGADO, LocalDateTime.now(), token</span>
+        );
+
+<span class="fc" id="L222">        String clientName = userClientPort.getUserNameById(saved.getClientId(), token);</span>
+<span class="fc" id="L223">        saved.setClientName(clientName);</span>
+
+<span class="fc" id="L225">        RestaurantModel restaurant = restaurantPersistencePort.findById(saved.getRestaurantId());</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        saved.setRestaurantName(restaurant != null ? restaurant.getName() : null);</span>
+
+<span class="fc" id="L228">        return saved;</span>
+    }
+
+    @Override
+    public OrderModel cancelOrder(Long orderId, Long clientId, String token) {
+<span class="fc" id="L233">        OrderModel order = orderPersistencePort.findById(orderId);</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (order == null) {</span>
+<span class="fc" id="L235">            throw new OrderNotFoundException();</span>
+        }
+
+<span class="fc bfc" id="L238" title="All 2 branches covered.">        if (!STATUS_PENDIENTE.equals(order.getStatus())) {</span>
+<span class="fc" id="L239">            throw new InvalidOrderStateException(&quot;Lo sentimos, tu pedido ya está en preparación y no puede cancelarse&quot;);</span>
+        }
+
+<span class="fc" id="L242">        String previousStatus = order.getStatus();</span>
+<span class="fc" id="L243">        order.setStatus(STATUS_CANCELADO);</span>
+<span class="fc" id="L244">        OrderModel saved = orderPersistencePort.saveOrder(order);</span>
+
+<span class="fc" id="L246">        traceabilityClientPort.registerLog(</span>
+<span class="fc" id="L247">                orderId, clientId, null, previousStatus, STATUS_CANCELADO, LocalDateTime.now(), token</span>
+        );
+
+<span class="fc" id="L250">        String clientName = userClientPort.getUserNameById(clientId, token);</span>
+<span class="fc" id="L251">        saved.setClientName(clientName);</span>
+<span class="fc" id="L252">        saved.setSecurityPin(null);</span>
+
+<span class="fc" id="L254">        return saved;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

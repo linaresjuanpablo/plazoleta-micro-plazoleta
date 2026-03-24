@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-03-23T23:19:50" hostname="DESKTOP-6U4UTQC" time="0.731">
+  <properties/>
+  <testcase name="handleIllegalArgument_returnsBadRequest()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.031"/>
+  <testcase name="handleOrderNotFound_returnsNotFound()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleRestaurantNotFound_returnsNotFound()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleInvalidOrderState_returnsConflict()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleFeignException_returnsBadGateway()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.22"/>
+  <testcase name="handleValidationErrors_returnsBadRequestWithFieldErrors()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.46"/>
+  <testcase name="handleInvalidPin_returnsBadRequest()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleDishNotFound_returnsNotFound()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleDishesNotFromSameRestaurant_returnsBadRequest()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.001"/>
+  <testcase name="handleNotRestaurantOwner_returnsForbidden()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.002"/>
+  <testcase name="handleClientHasActiveOrder_returnsConflict()" classname="com.gastropolis.plazoleta.infrastructure.exceptionhandler.ControllerAdvisorTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
