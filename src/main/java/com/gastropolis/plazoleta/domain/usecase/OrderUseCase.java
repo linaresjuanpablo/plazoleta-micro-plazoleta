@@ -72,7 +72,7 @@ public class OrderUseCase implements IOrderServicePort {
 
         OrderModel saved = orderPersistencePort.saveOrder(orderModel);
 
-        RestaurantModel restaurant = restaurantPersistencePort.findById(saved.getRestaurantId());
+        RestaurantModel restaurant = restaurantPersistencePort.findById(orderModel.getRestaurantId());
         saved.setRestaurantName(restaurant != null ? restaurant.getName() : null);
         if (saved.getDishes() != null) {
             for (OrderDishModel dishModel : saved.getDishes()) {

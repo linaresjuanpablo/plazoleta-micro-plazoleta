@@ -9,6 +9,7 @@ public class RestaurantModel {
     private String phone;
     private String logoUrl;
     private Long ownerId;
+    private String ownerDni;
 
     public RestaurantModel() {}
 
@@ -36,4 +37,6 @@ public class RestaurantModel {
     public void setLogoUrl(String logoUrl) { this.logoUrl = logoUrl; }
     public Long getOwnerId() { return ownerId; }
     public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
+    public String getOwnerDni() { return ownerDni; }
+    public void setOwnerDni(String ownerDni) { this.ownerDni = ownerDni; }
 }

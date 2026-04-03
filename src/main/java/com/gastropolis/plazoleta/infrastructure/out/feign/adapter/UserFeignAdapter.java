@@ -33,6 +33,12 @@ public class UserFeignAdapter implements IUserClientPort {
     }
 
     @Override
+    public Long getOwnerIdByDni(String dni, String token) {
+        UserFeignResponseDto user = userFeignClient.getUserByDni(dni, token);
+        return user.getId();
+    }
+
+    @Override
     public Long createEmployee(CreateEmployeeModel model, String token) {
         CreateEmployeeFeignRequestDto dto = new CreateEmployeeFeignRequestDto(
                 model.getName(),

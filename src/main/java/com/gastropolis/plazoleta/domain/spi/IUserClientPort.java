@@ -7,4 +7,5 @@ public interface IUserClientPort {
     String getUserPhoneById(Long userId, String token);
     String getUserNameById(Long userId, String token);
     Long createEmployee(CreateEmployeeModel model, String token);
+    Long getOwnerIdByDni(String dni, String token);
 }

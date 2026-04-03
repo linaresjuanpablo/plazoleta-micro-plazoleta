@@ -15,6 +15,9 @@ public interface UserFeignClient {
     @GetMapping("/api/v1/user/{id}")
     UserFeignResponseDto getUserById(@PathVariable("id") Long id, @RequestHeader("Authorization") String token);
 
+    @GetMapping("/api/v1/user/dni/{dni}")
+    UserFeignResponseDto getUserByDni(@PathVariable("dni") String dni, @RequestHeader("Authorization") String token);
+
     @PostMapping("/api/v1/user/owner/employee")
     UserFeignResponseDto createEmployee(@RequestBody CreateEmployeeFeignRequestDto dto,
                                         @RequestHeader("Authorization") String token);

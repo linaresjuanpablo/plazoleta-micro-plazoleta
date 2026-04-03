@@ -31,7 +31,10 @@ public class RestaurantUseCase implements IRestaurantServicePort {
             throw new IllegalArgumentException("El nombre del restaurante no puede ser solo números");
         }
 
-        String ownerRole = userClientPort.getUserRoleById(restaurantModel.getOwnerId(), token);
+        Long ownerId = userClientPort.getOwnerIdByDni(restaurantModel.getOwnerDni(), token);
+        restaurantModel.setOwnerId(ownerId);
+
+        String ownerRole = userClientPort.getUserRoleById(ownerId, token);
         if (!ROLE_PROPIETARIO.equalsIgnoreCase(ownerRole)) {
             throw new IllegalArgumentException("El usuario indicado no tiene el rol PROPIETARIO");
         }
